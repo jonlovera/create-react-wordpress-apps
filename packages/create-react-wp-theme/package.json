@@ -1,0 +1,17 @@
+{
+  "name": "create-react-wp-theme",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "bin": {
+    "create-react-wp-theme": "./cli.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Moretape Team <team@moretape.com>",
+  "license": "MIT",
+  "dependencies": {
+    "create-react-app": "latest"
+  }
+}

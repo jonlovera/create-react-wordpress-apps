@@ -1,0 +1,11 @@
+version: "3"
+
+services:
+  composer:
+    image: composer:1.9.1
+    command: update -vvv -d ./themes/api
+    restart: "no"
+    volumes:
+      - ~/.ssh:/root/.ssh
+      - ${ROOT_PATH}/.wp/plugins:/app/plugins
+      - ${ROOT_PATH}/api:/app/themes/api

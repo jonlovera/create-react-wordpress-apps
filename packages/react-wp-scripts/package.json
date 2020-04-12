@@ -1,0 +1,22 @@
+{
+  "name": "@moretape/react-wp-scripts",
+  "version": "0.0.0",
+  "description": "",
+  "main": "cli.js",
+  "bin": {
+    "react-wp-scripts": "./cli.js"
+  },
+  "author": "Moretape Team <team@moretape.com>",
+  "license": "MIT",
+  "dependencies": {
+    "dateformat": "^3.0.3",
+    "fs-extra": "^8.1.0",
+    "react-dev-utils": "^10.1.0",
+    "shelljs": "^0.8.3",
+    "yargs": "^15.1.0"
+  },
+  "devDependencies": {
+    "dos2unix-cli": "^1.0.1",
+    "nodemon": "^2.0.2"
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "name": "moretape/wordpress-theme",
+  "type": "wordpress-theme",
+  "license": "MIT",
+  "description": "WordPress starter theme with a modern development workflow",
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://wpackagist.org"
+    }
+  ],
+  "require": {
+    "php": ">=7.1",
+    "composer/installers": "~1.4",
+    "ffraenz/private-composer-installer": "^2.0",
+    "vlucas/phpdotenv": "^3.4.0",
+    "oscarotero/env": "^1.2.0"
+  },
+  "require-dev": {
+    "friendsofphp/php-cs-fixer": "2.16.1"
+  },
+  "scripts": {
+    "test": [
+      "phpcs"
+    ],
+    "post-root-package-install": [
+      "php -r \"copy('.env.example', '.env');\""
+    ]
+  },
+  "extra": {
+    "installer-paths": {
+      "../../mu-plugins/{$name}/": [
+        "type:wordpress-muplugin"
+      ],
+      "../../plugins/{$name}/": [
+        "type:wordpress-plugin"
+      ]
+    }
+  }
+}

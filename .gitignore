@@ -1,0 +1,18 @@
+# composer
+/vendor
+
+# ignore wp cache folder
+/index.php
+/uploads/*
+!/uploads/2*
+/plugins/*
+!/plugins/wp-graphql-jwt-authentication
+/mu-plugins
+/languages
+/upgrade
+/aiowps_backups
+
+# misc
+.DS_Store
+
+node_modules
