@@ -1,9 +1,10 @@
 {
-  "name": "create-react-wp-plugin",
+  "name": "create-react-wordpress-plugin",
   "version": "0.0.00",
   "description": "",
   "main": "index.js",
   "bin": {
+    "create-react-wordpress-plugin": "./cli.js",
     "create-react-wp-plugin": "./cli.js"
   },
   "scripts": {

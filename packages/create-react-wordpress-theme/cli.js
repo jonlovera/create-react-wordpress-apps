@@ -20,20 +20,23 @@ const installWP = ({ projectName, pkg, packagePath }) => {
 
   Object.keys(pkg.scripts).forEach(name => {
     const script = pkg.scripts[name];
-    pkg.scripts[name] = script.replace(/react-scripts/g, "react-wp-scripts");
+    pkg.scripts[name] = script.replace(
+      /react-scripts/g,
+      "react-wordpress-scripts"
+    );
   });
-  pkg.scripts.composer = "react-wp-scripts composer";
-  pkg.scripts["composer:reset"] = "react-wp-scripts composer --reset";
-  pkg.scripts.backend = "react-wp-scripts backend";
-  pkg.scripts["backend:stop"] = "react-wp-scripts backend --down";
-  pkg.scripts["backend:reset"] = "react-wp-scripts backend --reset";
-  pkg.scripts.backup = "react-wp-scripts backup";
-  pkg.devDependencies["@moretape/react-wp-scripts"] = packageJson.version;
+  pkg.scripts.composer = "react-wordpress-scripts composer";
+  pkg.scripts["composer:reset"] = "react-wordpress-scripts composer --reset";
+  pkg.scripts.backend = "react-wordpress-scripts backend";
+  pkg.scripts["backend:stop"] = "react-wordpress-scripts backend --down";
+  pkg.scripts["backend:reset"] = "react-wordpress-scripts backend --reset";
+  pkg.scripts.backup = "react-wordpress-scripts backup";
+  pkg.devDependencies["react-wordpress-scripts"] = packageJson.version;
 
   // NOTE for DEV purposes only
-  // pkg.devDependencies["@moretape/react-wp-scripts"] = `file:${path.resolve(
+  // pkg.devDependencies["react-wordpress-scripts"] = `file:${path.resolve(
   //   __dirname,
-  //   "../react-wp-scripts"
+  //   "../react-wordpress-scripts"
   // )}`;
 
   fs.writeFileSync(packagePath, JSON.stringify(pkg, null, 2) + os.EOL);

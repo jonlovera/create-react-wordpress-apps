@@ -1,9 +1,10 @@
 {
-  "name": "@moretape/react-wp-scripts",
+  "name": "react-wordpress-scripts",
   "version": "0.0.00",
   "description": "",
   "main": "cli.js",
   "bin": {
+    "react-wordpress-scripts": "./cli.js",
     "react-wp-scripts": "./cli.js"
   },
   "author": "Moretape Team <team@moretape.com>",
