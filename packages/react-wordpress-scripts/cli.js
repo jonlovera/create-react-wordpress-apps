@@ -8,6 +8,7 @@ const { argv } = require("yargs");
 const pkg = require(`${process.cwd()}/package.json`);
 const child_process = require("child_process");
 const dateFormat = require("dateformat");
+const chalk = require("chalk");
 const projectName = pkg.name;
 
 clearConsole();
@@ -101,39 +102,38 @@ switch (action) {
     break;
 
   case "build":
-    console.log("Creating an optimized production build...");
+    (async function() {
+      const { stdout, stderr, code } = await sh.exec(
+        `cross-env PUBLIC_URL=/wp-content/themes/${projectName}/build react-scripts build --color=always`,
+        { silent: false }
+      );
 
-    const { stdout, stderr, code } = sh.exec(
-      `PUBLIC_URL=/wp-content/themes/${projectName}/build react-scripts build --color=always`,
-      { silent: true }
-    );
+      const success = code === 0;
+      if (success) {
+        console.log("Preparing wordpress files...");
+        console.log("");
 
-    const message = stdout.replace(
-      "Creating an optimized production build...\n",
-      ""
-    );
+        sh.mkdir("-p", `./build/themes/${projectName}/build/`);
+        sh.mv("./build/!(themes)", `./build/themes/${projectName}/build/`);
+        sh.cp("-r", "./api/.", `./build/themes/${projectName}`);
+        sh.cp("-rf", "./.wp/plugins/", "./build/");
 
-    const success = code === 0;
-    if (success) {
-      sh.mkdir("-p", `./build/themes/${projectName}/build/`);
-      sh.mv("./build/!(themes)", `./build/themes/${projectName}/build/`);
-      sh.cp("-r", "./api/.", `./build/themes/${projectName}`);
-      sh.cp("-rf", "./.wp/plugins/", "./build/");
+        // .wp theme folder
+        // sh.mkdir("-p", `./build/themes/${projectName}/.wp/`);
+        // sh.cp("-rf", "./.wp/*.php", "./build/themes/${projectName}/.wp/");
 
-      // .wp theme folder
-      // sh.mkdir("-p", `./build/themes/${projectName}/.wp/`);
-      // sh.cp("-rf", "./.wp/*.php", "./build/themes/${projectName}/.wp/");
+        sh.rm("-rf", `./build/themes/${projectName}/.gitignore`);
+        sh.rm("-rf", "./build/**/.git");
 
-      sh.rm("-rf", `./build/themes/${projectName}/.gitignore`);
-      sh.rm("-rf", "./build/**/.git");
+        // TODO: add done build message customized to react-wordpress-scripts
+        console.log("=============");
+        console.log(chalk.green("✔ Build completed successfully."));
+        console.log("");
+        process.exit(0);
+      }
 
-      console.log(message);
-      // TODO: add done build message
-      // customized to create-react-wp-app
-      // console.log("✔ Build done.");
-    } else {
-      console.log(stderr || message);
-    }
+      process.exit(1);
+    })();
 
     break;
 }
