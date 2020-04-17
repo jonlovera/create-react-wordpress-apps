@@ -10,6 +10,7 @@ services:
       - wp_data:/var/www/html # Full wordpress project
       - ${ROOT_PATH}/.wp/uploads:/var/www/html/wp-content/uploads
       - ${ROOT_PATH}/.wp/plugins:/var/www/html/wp-content/plugins
+      - ${ROOT_PATH}/.wp/themes:/var/www/html/wp-content/themes
       - ${ROOT_PATH}/api:/var/www/html/wp-content/themes/api # Theme development
       - ${ROOT_PATH}/.wp/.htaccess:/var/www/html/.htaccess
     environment:

@@ -91,7 +91,7 @@ switch (action) {
     } else if (argv.reset) {
       runDocker("docker-compose", "down -v");
     } else {
-      runDocker("docker-compose", "down");
+      runDocker("docker-compose", "stop");
       runDocker("docker-compose", "up");
     }
     break;
@@ -117,6 +117,7 @@ switch (action) {
         sh.mv("./build/!(themes)", `./build/themes/${projectName}/build/`);
         sh.cp("-r", "./api/.", `./build/themes/${projectName}`);
         sh.cp("-rf", "./.wp/plugins/", "./build/");
+        sh.cp("-rf", "./.wp/themes/", "./build/");
 
         // .wp theme folder
         // sh.mkdir("-p", `./build/themes/${projectName}/.wp/`);

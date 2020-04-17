@@ -8,4 +8,5 @@ services:
     volumes:
       - ~/.ssh:/root/.ssh
       - ${ROOT_PATH}/.wp/plugins:/app/plugins
+      - ${ROOT_PATH}/.wp/themes:/app/themes
       - ${ROOT_PATH}/api:/app/themes/api
