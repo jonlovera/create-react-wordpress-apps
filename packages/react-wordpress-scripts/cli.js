@@ -18,7 +18,7 @@ const rootPath = process.cwd();
 
 const runDocker = (path, action) => {
   return sh.exec(
-    `ROOT_PATH=${rootPath} docker-compose -p ${projectName} -f ${p(
+    `cross-env ROOT_PATH=${rootPath} docker-compose -p ${projectName} -f ${p(
       path
     )}.yml ${action}`
   );
@@ -32,7 +32,7 @@ switch (action) {
     if (argv.reset) {
       runDocker("docker-compose.setup", "down -v");
     } else {
-      runDocker("docker-compose.setup", "down");
+      runDocker("docker-compose.setup", "stop");
       runDocker("docker-compose.setup", "up");
     }
     break;
