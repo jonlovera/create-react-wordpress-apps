@@ -3,7 +3,7 @@
 
 # ignore wp cache folder
 /index.php
-/uploads
+/themes
 /plugins
 /mu-plugins
 /languages

@@ -103,14 +103,13 @@ if (typeof projectName === "undefined") {
 
   if (pkgExist) {
     const pkg = require(packagePath);
-    const isReact = pkg.dependencies
-      ? pkg.dependencies["react-scripts"] ||
-        pkg.devDependencies["react-scripts"]
-        ? true
-        : false
-      : false;
+    if (!pkg.dependencies) pkg.dependencies = {};
+    if (!pkg.devDependencies) pkg.devDependencies = {};
 
-    if (isReact) {
+    const existingReactApp =
+      pkg.dependencies.react || pkg.devDependencies.react ? true : false;
+
+    if (existingReactApp) {
       projectName = pkg.name;
       root = path.resolve();
 
@@ -123,7 +122,7 @@ if (typeof projectName === "undefined") {
         .prompt({
           type: "confirm",
           name: "useScript",
-          message: `Would you like to install convert this app to a Wordpress Theme?`,
+          message: `Would you like to convert this app to a Wordpress Theme?`,
           default: false
         })
         .then(answer => {
