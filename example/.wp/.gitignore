@@ -1,0 +1,16 @@
+# composer
+/vendor
+
+# ignore wp cache folder
+/index.php
+/themes
+/plugins
+/mu-plugins
+/languages
+/upgrade
+/aiowps_backups
+
+# misc
+.DS_Store
+
+node_modules

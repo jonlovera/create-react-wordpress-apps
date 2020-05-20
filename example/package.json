@@ -1,0 +1,44 @@
+{
+  "name": "example",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/user-event": "^7.1.2",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-scripts": "3.4.1"
+  },
+  "scripts": {
+    "start": "react-wordpress-scripts start",
+    "build": "react-wordpress-scripts build",
+    "test": "react-wordpress-scripts test",
+    "eject": "react-wordpress-scripts eject",
+    "composer": "react-wordpress-scripts composer",
+    "composer:reset": "react-wordpress-scripts composer --reset",
+    "backend": "react-wordpress-scripts backend",
+    "backend:stop": "react-wordpress-scripts backend --down",
+    "backend:reset": "react-wordpress-scripts backend --reset",
+    "backup": "react-wordpress-scripts backup"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "react-app-rewired": "^2.1.6",
+    "react-wordpress-scripts": "0.0.3"
+  }
+}
