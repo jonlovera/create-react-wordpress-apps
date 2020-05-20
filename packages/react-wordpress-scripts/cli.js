@@ -158,7 +158,7 @@ switch (action) {
   case "build":
     (async function() {
       const { stdout, stderr, code } = await sh.exec(
-        `cross-env PUBLIC_URL=/wp-content/themes/${projectName}/build react-scripts build --color=always`,
+        `cross-env PUBLIC_URL=/wp-content/themes/${projectName}/build react-scripts build --color=always ${parameters}`,
         { silent: false }
       );
 
