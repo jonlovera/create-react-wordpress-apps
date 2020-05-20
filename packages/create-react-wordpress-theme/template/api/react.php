@@ -12,8 +12,8 @@ function load_react_scripts_css() {
     //
     global $wp_styles;
     global $wp_scripts;
-    $wp_styles->queue = [];
-    $wp_scripts->queue = [];
+    // $wp_styles->queue = [];
+    // $wp_scripts->queue = [];
 
     //
     // Load react scripts
@@ -34,7 +34,7 @@ function load_react_scripts_css() {
     foreach ($asset_manifest as $key => $value) {
         if (preg_match('@static/js/(.*)\.chunk\.js@', $key, $matches)) {
             if ($matches && is_array($matches) && count($matches) === 2) {
-                $name = "cra-" . preg_replace('/[^A-Za-z0-9_]/', '-', $matches[1]);
+                $name = "crwa-" . preg_replace('/[^A-Za-z0-9_]/', '-', $matches[1]);
                 wp_enqueue_script($name, get_site_url() . $value, [], null, true);
                 $last_js_chunk = $name;
             }
@@ -42,7 +42,7 @@ function load_react_scripts_css() {
 
         if (preg_match('@static/css/(.*)\.chunk\.css@', $key, $matches)) {
             if ($matches && is_array($matches) && count($matches) == 2) {
-                $name = "cra-" . preg_replace('/[^A-Za-z0-9_]/', '-', $matches[1]);
+                $name = "crwa-" . preg_replace('/[^A-Za-z0-9_]/', '-', $matches[1]);
                 wp_enqueue_style($name, get_site_url() . $value, [], null);
                 $last_css_chunk = $name;
             }
@@ -50,13 +50,13 @@ function load_react_scripts_css() {
     }
 
     if (isset($main_css)) {
-        wp_enqueue_style('cra-css', $main_css, [$last_css_chunk], null);
+        wp_enqueue_style('crwa-css', $main_css, [$last_css_chunk], null);
     }
     if (isset($main_js)) {
-        wp_enqueue_script('cra-js', $main_js, [$last_js_chunk], null, true);
+        wp_enqueue_script('crwa-js', $main_js, [$last_js_chunk], null, true);
     }
     if (isset($runtime_js)) {
-        wp_enqueue_script('cra-runtime', $runtime_js, [], null, true);
+        wp_enqueue_script('crwa-runtime', $runtime_js, [], null, true);
     }
 }
 
@@ -67,13 +67,16 @@ function load_react_app()
 {
     $build_path = parse_url(get_template_directory_uri() . '/build', PHP_URL_PATH); ?>
 <!doctype html>
-<html lang="en">
+<html <?php language_attributes(); ?>>
 <head>
+	<meta charset="<?php bloginfo( 'charset' ); ?>" />
   <meta content="width=device-width, initial-scale=1" name="viewport" />
-  <?php wp_head(); ?>
+	<link rel="profile" href="https://gmpg.org/xfn/11" />
+	<?php wp_head(); ?>
 </head>
 
-<body>
+<body <?php body_class(); ?>>
+<?php wp_body_open(); ?>
   <noscript>You need to enable JavaScript to run this app.</noscript>
   <div id="root"></div>
 
