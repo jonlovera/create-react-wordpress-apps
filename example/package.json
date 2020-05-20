@@ -1,6 +1,6 @@
 {
   "name": "example",
-  "version": "0.1.0",
+  "version": "0.0.4",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
@@ -39,6 +39,6 @@
   },
   "devDependencies": {
     "react-app-rewired": "^2.1.6",
-    "react-wordpress-scripts": "0.0.3"
+    "react-wordpress-scripts": "^0.0.4"
   }
 }
