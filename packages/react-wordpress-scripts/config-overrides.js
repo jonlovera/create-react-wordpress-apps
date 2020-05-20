@@ -1,11 +1,5 @@
-const {
-  override,
-  addWebpackPlugin,
-  overrideDevServer,
-  watchAll
-} = require("customize-cra");
+const { override, overrideDevServer, watchAll } = require("customize-cra");
 const path = require("path");
-const injectScripts = require("webpack-dev-server-inject-scripts");
 
 const rootPath = process.cwd();
 
