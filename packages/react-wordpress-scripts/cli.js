@@ -79,7 +79,12 @@ switch (action) {
     if (argv.reset) {
       runDocker("docker-compose.setup", "down -v");
     } else {
-      onExit(() => runDocker("docker-compose.setup", "stop"));
+      onExit(() =>
+        runDocker("docker-compose.setup", "stop", {
+          async: false,
+          silent: false
+        })
+      );
       runDocker("docker-compose.setup", "stop");
       runDocker("docker-compose.setup", "up", { async: true, silent: true });
     }
