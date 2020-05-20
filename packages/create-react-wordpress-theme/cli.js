@@ -20,10 +20,9 @@ const installWP = ({ projectName, pkg, packagePath }) => {
 
   Object.keys(pkg.scripts).forEach(name => {
     const script = pkg.scripts[name];
-    pkg.scripts[name] = script.replace(
-      /react-scripts/g,
-      "react-wordpress-scripts"
-    );
+    pkg.scripts[name] = script
+      .replace(/react-scripts/g, "react-wordpress-scripts")
+      .replace(/react-app-rewired/g, "react-wordpress-scripts");
   });
   pkg.scripts.composer = "react-wordpress-scripts composer";
   pkg.scripts["composer:reset"] = "react-wordpress-scripts composer --reset";
