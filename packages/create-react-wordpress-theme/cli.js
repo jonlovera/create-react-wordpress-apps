@@ -32,7 +32,6 @@ const installWP = ({ projectName, pkg, packagePath }) => {
   pkg.scripts["backend:reset"] = "react-wordpress-scripts backend --reset";
   pkg.scripts.backup = "react-wordpress-scripts backup";
   pkg.devDependencies["react-wordpress-scripts"] = packageJson.version;
-  pkg.devDependencies["http-proxy-middleware"] = "^0.20.0";
 
   // NOTE for DEV purposes only
   // pkg.devDependencies["react-wordpress-scripts"] = `file:${path.resolve(
@@ -54,16 +53,7 @@ const installWP = ({ projectName, pkg, packagePath }) => {
     fs.writeFileSync(path.resolve(process.cwd(), "api/style.css"), styleFile);
   }
 
-  const setupProxyPath = path.resolve(process.cwd(), "src/setupProxy.js");
-  const setupProxyExist = fs.existsSync(setupProxyPath);
-  if (!setupProxyExist) {
-    fs.copySync(
-      path.join(__dirname, "template/src/setupProxy.js"),
-      setupProxyPath
-    );
-  }
-
-  console.log("Done.");
+  console.log("✔ Done");
 };
 
 //

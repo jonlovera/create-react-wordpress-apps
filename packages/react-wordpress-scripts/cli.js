@@ -15,6 +15,14 @@ const projectName = pkg.name;
 clearConsole();
 
 const [action] = argv._;
+let parameters = "";
+Object.keys(argv).map(name => {
+  if (["$0", "_"].includes(name)) return;
+  const value = argv[name];
+  const valueString = typeof value !== "string" ? `=${value}` : "";
+  parameters += ` --${name}${valueString}`;
+});
+
 const p = file => path.join(__dirname, file || "");
 const rootPath = process.cwd();
 
@@ -116,7 +124,11 @@ switch (action) {
     break;
 
   case "start":
-    sh.exec(`react-scripts start --color=always`);
+    const configOverrides = p("config-overrides");
+    // console.log("configOverrides", configOverrides);
+    sh.exec(
+      `react-app-rewired start --color=always --config-overrides ${configOverrides} ${parameters}`
+    );
 
     break;
 
