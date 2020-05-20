@@ -27,15 +27,6 @@ services:
     links:
       - db
 
-  wpcli:
-    image: wordpress:cli-php7.4
-    volumes:
-      - ${ROOT_PATH}/.wp/config/php.conf.ini:/usr/local/etc/php/conf.d/conf.ini
-      - wp_data:/var/www/html # Full wordpress project
-    depends_on:
-      - db
-      - wp
-
   pma:
     image: phpmyadmin/phpmyadmin:5
     environment:
