@@ -18,12 +18,28 @@ const [action] = argv._;
 const p = file => path.join(__dirname, file || "");
 const rootPath = process.cwd();
 
-const runDocker = (path, action) => {
-  return sh.exec(
+const runDocker = (path, action, options = {}) => {
+  const child = sh.exec(
     `cross-env ROOT_PATH=${rootPath} docker-compose -p ${projectName} -f ${p(
       path
-    )}.yml ${action}`
+    )}.yml ${action}`,
+    options
   );
+
+  if (options.async) {
+    child.on("error", process.stdout.write);
+    child.on("exit", process.exit);
+
+    child.stdout.on("data", data => {
+      let output = data;
+      if (data.includes("composer_1  |")) {
+        output = output.replace(/composer_1  /g, "");
+      }
+      process.stdout.write(output);
+    });
+  }
+
+  return child;
 };
 const execDocker = action => {
   return sh.exec(`docker-compose -p ${projectName} exec ${action}`);
@@ -36,7 +52,7 @@ switch (action) {
     } else {
       onExit(() => runDocker("docker-compose.setup", "stop"));
       runDocker("docker-compose.setup", "stop");
-      runDocker("docker-compose.setup", "up");
+      runDocker("docker-compose.setup", "up", { async: true, silent: true });
     }
     break;
 
