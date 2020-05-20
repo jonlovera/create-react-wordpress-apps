@@ -9,6 +9,7 @@ const pkg = require(`${process.cwd()}/package.json`);
 const child_process = require("child_process");
 const dateFormat = require("dateformat");
 const chalk = require("chalk");
+const onExit = require("./src/onExit");
 const projectName = pkg.name;
 
 clearConsole();
@@ -33,6 +34,7 @@ switch (action) {
     if (argv.reset) {
       runDocker("docker-compose.setup", "down -v");
     } else {
+      onExit(() => runDocker("docker-compose.setup", "stop"));
       runDocker("docker-compose.setup", "stop");
       runDocker("docker-compose.setup", "up");
     }
@@ -91,6 +93,7 @@ switch (action) {
     } else if (argv.reset) {
       runDocker("docker-compose", "down -v");
     } else {
+      onExit(() => runDocker("docker-compose", "stop"));
       runDocker("docker-compose", "stop");
       runDocker("docker-compose", "up");
     }
