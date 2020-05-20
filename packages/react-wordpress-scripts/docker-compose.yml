@@ -34,6 +34,8 @@ services:
 
   pma:
     image: phpmyadmin/phpmyadmin:5
+    logging:
+      driver: ${DEBUG}
     tty: true
     environment:
       PMA_HOST: db
@@ -47,6 +49,8 @@ services:
   db:
     image: mysql:8.0.18 # https://hub.docker.com/_/mysql/ - or mariadb https://hub.docker.com/_/mariadb
     tty: true
+    logging:
+      driver: ${DEBUG}
     ports:
       - 3306:3306
     command:

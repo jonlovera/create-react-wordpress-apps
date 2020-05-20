@@ -27,8 +27,10 @@ const p = file => path.join(__dirname, file || "");
 const rootPath = process.cwd();
 
 const runDocker = (path, action, options = {}) => {
+  const debug = process.env.DEBUG || argv.debug;
+  const debugOptions = debug ? " DEBUG=json-file" : " DEBUG=none";
   const child = sh.exec(
-    `cross-env ROOT_PATH=${rootPath} docker-compose -p ${projectName} -f ${p(
+    `cross-env ROOT_PATH=${rootPath}${debugOptions} docker-compose -p ${projectName} -f ${p(
       path
     )}.yml ${action}`,
     options
@@ -43,6 +45,25 @@ const runDocker = (path, action, options = {}) => {
       if (data.includes("composer_1  |")) {
         output = output.replace(/composer_1  /g, "");
       }
+      if (data.includes("wp_1   |") && !debug) {
+        output = output.replace(/wp_1   /g, "");
+      }
+
+      // const messageDebugOff =
+      //   " WARNING: no logs are available with the 'none' log driver";
+      // if (data.includes("db_1   |") && data.includes(messageDebugOff)) {
+      //   output = output
+      //     .replace(/db_1   |/g, "")
+      //     .replace(/|/g, "")
+      //     .replace(messageDebugOff, "");
+      // }
+      // if (data.includes("pma_1  |") && data.includes(messageDebugOff)) {
+      //   output = output
+      //     .replace(/pma_1  |/g, "")
+      //     .replace(/|/g, "")
+      //     .replace(messageDebugOff, "");
+      // }
+
       process.stdout.write(output);
     });
   }
@@ -117,9 +138,11 @@ switch (action) {
     } else if (argv.reset) {
       runDocker("docker-compose", "down -v");
     } else {
-      onExit(() => runDocker("docker-compose", "stop"));
+      onExit(() =>
+        runDocker("docker-compose", "stop", { async: false, silent: false })
+      );
       runDocker("docker-compose", "stop");
-      runDocker("docker-compose", "up");
+      runDocker("docker-compose", "up", { async: true, silent: true });
     }
     break;
 
