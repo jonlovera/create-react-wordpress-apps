@@ -16,7 +16,7 @@
     "dateformat": "^3.0.3",
     "fs-extra": "^8.1.0",
     "react-app-rewired": "^2.1.6",
-    "react-dev-utils": "^10.1.0",
+    "react-dev-utils": "^11.0.4",
     "shelljs": "^0.8.3",
     "yargs": "^15.1.0"
   },
